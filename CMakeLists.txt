@@ -3,7 +3,7 @@ project(qualisys_cpp_sdk)
 
 option(BUILD_EXAMPLES "Build examples" OFF)
 
-add_library(${PROJECT_NAME}
+add_library(${PROJECT_NAME} SHARED
         Markup.cpp
         Network.cpp
         RTPacket.cpp
@@ -27,6 +27,7 @@ set_target_properties(${PROJECT_NAME}
         DEBUG_POSTFIX "-d"
 )
 
+
 # ----------- INSTALL & EXPORT -----------
 
 include(GNUInstallDirs)
@@ -37,6 +38,7 @@ install(EXPORT ${PROJECT_NAME}Targets
         FILE ${PROJECT_NAME}Targets.cmake
         DESTINATION ${ConfigPackageLocation}
 )
+message(${ConfigPackageLocation})
 
 include(CMakePackageConfigHelpers)
 configure_package_config_file(${PROJECT_NAME}Config.cmake.in
