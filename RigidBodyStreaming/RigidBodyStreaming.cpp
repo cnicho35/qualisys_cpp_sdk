@@ -34,7 +34,7 @@ int main(int argc, char **argv)
         //    printf("%s", rtProtocol.GetErrorString());
         //}
 
-        const char           serverAddr[] = "127.0.0.1";
+        const char           serverAddr[] = "192.168.254.001";
         const unsigned short basePort = 22222;
         const int            majorVersion = 1;
         const int            minorVersion = 19;
@@ -43,6 +43,7 @@ int main(int argc, char **argv)
         bool dataAvailable = false;
         bool streamFrames = false;
         unsigned short udpPort = 6734;
+        unsigned long long timestampOut;
         while (true)
         {
             if (!rtProtocol.Connected())
@@ -105,14 +106,16 @@ int main(int argc, char **argv)
                             {
                                 printf("Unknown     ");
                             }
-                            printf("Pos: %9.3f %9.3f %9.3f    Rot: %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f\n",
+                            printf("Pos: %9.3f %9.3f %9.3f    Rot: %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f  \n",
                                 fX, fY, fZ, rotationMatrix[0], rotationMatrix[1], rotationMatrix[2],
                                 rotationMatrix[3], rotationMatrix[4], rotationMatrix[5], rotationMatrix[6], rotationMatrix[7], rotationMatrix[8]);
                         }
+                        
                     }
                     printf("\n");
                 }
             }
+            break;
         }
         rtProtocol.StopCapture();
         rtProtocol.Disconnect();

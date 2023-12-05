@@ -5,11 +5,15 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <sstream>
+#include <iomanip>
+#include <stdio.h>
+#include <string.h>
 
 extern "C"
 {
-    const char * initQTM(const char *ipAddress, const unsigned short qtmPort);
-    const char * getData();
+    int32_t initQTM(const char *ipAddress, unsigned short * qtmPort);
+    char * getData();
     void closeQTM();
 
 }

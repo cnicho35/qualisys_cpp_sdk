@@ -15,23 +15,25 @@ CRTPacket::EPacketType packetType;
 std::stringstream initString;
 std::stringstream dataString;
 
-const char *initQTM(const char *ipAddress, const unsigned short qtmPort)
-{
-    initString.clear();
+int32_t failedInit;
 
+const int BUFFER_SIZE = 512;
+char* cString = new char[BUFFER_SIZE];
+std::string result;
+
+int32_t initQTM(const char * ipAddress, unsigned short  * qtmPort)
+{
     const char *serverAddr = ipAddress;
-    const unsigned short basePort = qtmPort;
+    const unsigned short basePort = *qtmPort;
+    failedInit= 0;
+
 
     if (!rtProtocol.Connected())
     {
         if (!rtProtocol.Connect(serverAddr, basePort, &udpPort, majorVersion, minorVersion, bigEndian))
         {
 
-            initString << "Connection Failed,";
-        }
-        else
-        {
-            initString << "Connection Succeeded,";
+            failedInit= 1;
         }
     }
 
@@ -39,11 +41,7 @@ const char *initQTM(const char *ipAddress, const unsigned short qtmPort)
     {
         if (!rtProtocol.Read6DOFSettings(dataAvailable))
         {
-            initString << "No Data Available, ";
-        }
-        else
-        {
-            initString << "Data Available, ";
+            failedInit= 1;
         }
     }
 
@@ -51,19 +49,17 @@ const char *initQTM(const char *ipAddress, const unsigned short qtmPort)
     {
         if (!rtProtocol.StreamFrames(CRTProtocol::RateAllFrames, 0, udpPort, NULL, CRTProtocol::cComponent6d))
         {
-            initString << "No Stream Available, ";
-        }
-        else
-        {
-            streamFrames = true;
-            initString << "Stream Available, ";
+            failedInit= 1;
         }
     }
-    return initString.str().c_str();
+     return failedInit;
 }
-const char *getData()
+char *getData()
 {
     dataString.clear();
+    strncpy(cString, "", BUFFER_SIZE - 1);
+    dataString << std::fixed;
+    
     if (rtProtocol.Receive(packetType, true) == CNetwork::ResponseType::success)
     {
         if (packetType == CRTPacket::PacketData)
@@ -86,10 +82,12 @@ const char *getData()
                 {
                     dataString << "ERROR";
                 }
+                result = dataString.str();
+                strncpy(cString, result.c_str(), BUFFER_SIZE - 1);
             }
         }
     }
-    return dataString.str().c_str();
+    return cString;
 }
 void closeQTM()
 {
