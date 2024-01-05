@@ -55,12 +55,14 @@ int32_t initQTM(const char * ipAddress, unsigned short  * qtmPort)
     }
      return failedInit;
 }
-char *getData()
+char* getData()
 {
-    dataString.clear();
+    dataString.str("");  // Clear the stringstream
+    result.clear();      // Clear the result string
     strncpy(cString, "", BUFFER_SIZE - 1);
+
     dataString << std::fixed;
-    
+
     if (rtProtocol.Receive(packetType, true) == CNetwork::ResponseType::success)
     {
         if (packetType == CRTPacket::PacketData)
@@ -68,7 +70,7 @@ char *getData()
             float fX, fY, fZ;
             float rotationMatrix[9];
 
-            CRTPacket *rtPacket = rtProtocol.GetRTPacket();
+            CRTPacket* rtPacket = rtProtocol.GetRTPacket();
 
             printf("Frame %d\n", rtPacket->GetFrameNumber());
             printf("======================================================================================================================\n");
@@ -79,12 +81,13 @@ char *getData()
             {
                 if (rtPacket->Get6DOFBody(i, fX, fY, fZ, rotationMatrix))
                 {
-                    dataString << fX << "," << fY << "," << fZ << "," << rotationMatrix[0] << "," << rotationMatrix[1] << "," << rotationMatrix[2] << "," << rotationMatrix[3] << "," << rotationMatrix[4] << "," << rotationMatrix[5] << "," << rotationMatrix[6] << "," << rotationMatrix[7] << "," << rotationMatrix[8]<< "," << cameraTime;
+                    dataString << fX << "," << fY << "," << fZ << "," << rotationMatrix[0] << "," << rotationMatrix[1] << "," << rotationMatrix[2] << "," << rotationMatrix[3] << "," << rotationMatrix[4] << "," << rotationMatrix[5] << "," << rotationMatrix[6] << "," << rotationMatrix[7] << "," << rotationMatrix[8] << "," << cameraTime;
                 }
                 else
                 {
                     dataString << "ERROR";
                 }
+
                 result = dataString.str();
                 strncpy(cString, result.c_str(), BUFFER_SIZE - 1);
             }
