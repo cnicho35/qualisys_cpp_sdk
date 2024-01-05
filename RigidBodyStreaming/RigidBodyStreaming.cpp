@@ -35,16 +35,16 @@ int main(int argc, char **argv)
         //     printf("%s", rtProtocol.GetErrorString());
         // }
 
-        const char serverAddr[] = "192.168.254.001";
+        const char serverAddr[] = "192.168.254.1";
         const unsigned short basePort = 22222;
         const int majorVersion = 1;
         const int minorVersion = 19;
         const bool bigEndian = false;
+        unsigned long long cameraTime;
 
         bool dataAvailable = false;
         bool streamFrames = false;
         unsigned short udpPort = 6734;
-        unsigned long long cameraTime;
         while (true)
         {
             if (!rtProtocol.Connected())
@@ -69,7 +69,7 @@ int main(int argc, char **argv)
 
             if (!streamFrames)
             {
-                if (!rtProtocol.StreamFrames(CRTProtocol::RateAllFrames, 0, udpPort, NULL, {"2,9"}))
+                if (!rtProtocol.StreamFrames(CRTProtocol::RateAllFrames, 0, udpPort, NULL, "6d timecode"))
                 {
                     printf("rtProtocol.StreamFrames: %s\n\n", rtProtocol.GetErrorString());
                     sleep(1);
@@ -96,10 +96,8 @@ int main(int argc, char **argv)
 
                     rtPacket->GetTimecodeCameraTime(cameraTime);
                     std::cout << "Camera Time: " << cameraTime << std::endl;
-
                     for (unsigned int i = 0; i < rtPacket->Get6DOFBodyCount(); i++)
                     {
-
                         if (rtPacket->Get6DOFBody(i, fX, fY, fZ, rotationMatrix))
                         {
                             const char *pTmpStr = rtProtocol.Get6DOFBodyName(i);
@@ -118,10 +116,6 @@ int main(int argc, char **argv)
                     }
                     printf("\n");
                 }
-            }
-            else
-            {
-                std::cout << "Error if statement" << std::endl;
             }
         }
         rtProtocol.StopCapture();

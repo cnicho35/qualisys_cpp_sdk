@@ -14,6 +14,7 @@ CRTPacket::EPacketType packetType;
 
 std::stringstream initString;
 std::stringstream dataString;
+unsigned long long cameraTime;
 
 int32_t failedInit;
 
@@ -47,7 +48,7 @@ int32_t initQTM(const char * ipAddress, unsigned short  * qtmPort)
 
     if (!streamFrames)
     {
-        if (!rtProtocol.StreamFrames(CRTProtocol::RateAllFrames, 0, udpPort, NULL, CRTProtocol::cComponent6d))
+        if (!rtProtocol.StreamFrames(CRTProtocol::RateAllFrames, 0, udpPort, NULL, "6d timecode"))
         {
             failedInit= 1;
         }
@@ -72,11 +73,13 @@ char *getData()
             printf("Frame %d\n", rtPacket->GetFrameNumber());
             printf("======================================================================================================================\n");
 
+            rtPacket->GetTimecodeCameraTime(cameraTime);
+
             for (unsigned int i = 0; i < rtPacket->Get6DOFBodyCount(); i++)
             {
                 if (rtPacket->Get6DOFBody(i, fX, fY, fZ, rotationMatrix))
                 {
-                    dataString << fX << "," << fY << "," << fZ << "," << rotationMatrix[0] << "," << rotationMatrix[1] << "," << rotationMatrix[2] << "," << rotationMatrix[3] << "," << rotationMatrix[4] << "," << rotationMatrix[5] << "," << rotationMatrix[6] << "," << rotationMatrix[7] << "," << rotationMatrix[8];
+                    dataString << fX << "," << fY << "," << fZ << "," << rotationMatrix[0] << "," << rotationMatrix[1] << "," << rotationMatrix[2] << "," << rotationMatrix[3] << "," << rotationMatrix[4] << "," << rotationMatrix[5] << "," << rotationMatrix[6] << "," << rotationMatrix[7] << "," << rotationMatrix[8]<< "," << cameraTime;
                 }
                 else
                 {
