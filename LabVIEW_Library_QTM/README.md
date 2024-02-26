@@ -2,6 +2,10 @@ To execute this VI on a cRIO, you need to have the compiled cpp library in a spe
 
 Make sure the cRIO can access the internet!
 
+In powershell or cmd:
+ssh admin@{crio IP Address}
+
+Once logged in run these commands:
 ```
 opkg update
 
