@@ -33,3 +33,5 @@ cmake ..
 make
 
 ```
+
+This should create the /home/admin/qualisys_cpp_sdk/LabVIEW_Library_QTM/build/libLabVIEW_QTM_RTLinux.so which is needed in LabVIEW
