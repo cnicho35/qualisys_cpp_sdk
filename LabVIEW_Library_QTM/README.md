@@ -1,4 +1,7 @@
 To execute this VI on a cRIO, you need to have the compiled cpp library in a specific location on the cRIO storage.
+
+Make sure the cRIO can access the internet!
+
 ```
 opkg update
 
