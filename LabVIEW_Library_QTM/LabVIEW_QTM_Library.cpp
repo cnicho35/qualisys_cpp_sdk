@@ -80,7 +80,7 @@ char *getData()
             {
                 if (rtPacket->Get6DOFBody(i, fX, fY, fZ, rotationMatrix))
                 {
-                    dataString << frameNum << fX << "," << fY << "," << fZ << "," << rotationMatrix[0] << "," << rotationMatrix[1] << "," << rotationMatrix[2] << "," << rotationMatrix[3] << "," << rotationMatrix[4] << "," << rotationMatrix[5] << "," << rotationMatrix[6] << "," << rotationMatrix[7] << "," << rotationMatrix[8] << "," << cameraTime;
+                    dataString << frameNum << "," << fX << "," << fY << "," << fZ << "," << rotationMatrix[0] << "," << rotationMatrix[1] << "," << rotationMatrix[2] << "," << rotationMatrix[3] << "," << rotationMatrix[4] << "," << rotationMatrix[5] << "," << rotationMatrix[6] << "," << rotationMatrix[7] << "," << rotationMatrix[8] << "," << cameraTime;
                 }
                 else
                 {
