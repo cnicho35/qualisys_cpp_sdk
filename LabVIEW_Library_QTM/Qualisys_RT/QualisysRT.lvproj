@@ -109,9 +109,23 @@ AddOutputFilter chunkFilter
 		</Item>
 		<Item Name="Qualisys_Dropped_Frames_Test.vi" Type="VI" URL="../Qualisys_Dropped_Frames_Test.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
+			<Item Name="instr.lib" Type="Folder">
+				<Item Name="niSync Close.vi" Type="VI" URL="/&lt;instrlib&gt;/niSync/niSync.llb/niSync Close.vi"/>
+				<Item Name="niSync Get Time References.vi" Type="VI" URL="/&lt;instrlib&gt;/niSync/niSync.llb/niSync Get Time References.vi"/>
+				<Item Name="niSync Initialize (Default).vi" Type="VI" URL="/&lt;instrlib&gt;/niSync/niSync.llb/niSync Initialize (Default).vi"/>
+				<Item Name="niSync Initialize (IVI).vi" Type="VI" URL="/&lt;instrlib&gt;/niSync/niSync.llb/niSync Initialize (IVI).vi"/>
+				<Item Name="niSync Initialize (String).vi" Type="VI" URL="/&lt;instrlib&gt;/niSync/niSync.llb/niSync Initialize (String).vi"/>
+				<Item Name="niSync Initialize.vi" Type="VI" URL="/&lt;instrlib&gt;/niSync/niSync.llb/niSync Initialize.vi"/>
+				<Item Name="niSync IVI Error Converter.vi" Type="VI" URL="/&lt;instrlib&gt;/niSync/niSync.llb/niSync IVI Error Converter.vi"/>
+				<Item Name="niSync Persist Configuration.vi" Type="VI" URL="/&lt;instrlib&gt;/niSync/niSync.llb/niSync Persist Configuration.vi"/>
+			</Item>
 			<Item Name="vi.lib" Type="Folder">
+				<Item Name="IVI Error Message Builder.vi" Type="VI" URL="/&lt;vilib&gt;/errclust.llb/IVI Error Message Builder.vi"/>
 				<Item Name="NI_PtbyPt.lvlib" Type="Library" URL="/&lt;vilib&gt;/ptbypt/NI_PtbyPt.lvlib"/>
 				<Item Name="System Exec.vi" Type="VI" URL="/&lt;vilib&gt;/Platform/system.llb/System Exec.vi"/>
+			</Item>
+			<Item Name="nisync.dll" Type="Document" URL="nisync.dll">
+				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
 		</Item>
 		<Item Name="Build Specifications" Type="Build"/>
